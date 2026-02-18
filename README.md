@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Therapy Connect</title>
+
+<style>
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(to right, #e8f5e9, #fce4ec);
+    margin: 0;
+}
+
+.container {
+    text-align: center;
+    margin-top: 110px;
+}
+
+h1 {
+    color: #2e7d32;
+    font-size: 40px;
+}
+
+p {
+    font-size: 18px;
+}
+
+.chat-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #2e7d32;
+    color: white;
+    border: none;
+    padding: 15px 22px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* Chatbox */
+.chatbox {
+    display: none;
+    position: fixed;
+    bottom: 85px;
+    right: 20px;
+    width: 350px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+
+.chat-header {
+    background: #2e7d32;
+    color: white;
+    padding: 12px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+}
+
+.chat-body {
+    height: 280px;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+.chat-footer {
+    padding: 10px;
+    border-top: 1px solid #ddd;
+}
+
+.chat-footer input {
+    width: 100%;
+    padding: 8px;
+}
+
+/* Emotion Buttons */
+.emotions {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 8px;
+}
+
+.emotions button {
+    border: none;
+    background: #f1f8e9;
+    padding: 6px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.bot {
+    background: #e8f5e9;
+    padding: 8px;
+    border-radius: 10px;
+    margin: 6px 0;
+}
+
+.user {
+    background: #fce4ec;
+    padding: 8px;
+    border-radius: 10px;
+    margin: 6px 0;
+    text-align: right;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Therapy Connect 💙</h1>
+    <p>A safe space for students to feel heard, supported, and valued.</p>
+</div>
+
+<button class="chat-btn" onclick="toggleChat()">💬 Talk to Me</button>
+
+<div class="chatbox" id="chatbox">
+    <div class="chat-header">
+        Therapy Bot 🤍
+        <span style="cursor:pointer;" onclick="toggleChat()">✖</span>
+    </div>
+
+    <div class="chat-body" id="chatBody">
+        <div class="bot">
+            Hello dear 🌱  
+            I'm here just for you.  
+            How are you feeling today?
+        </div>
+    </div>
+
+    <div class="chat-footer">
+        <div class="emotions">
+            <button onclick="emotionReply('happy')">😊 Happy</button>
+            <button onclick="emotionReply('sad')">😔 Sad</button>
+            <button onclick="emotionReply('stress')">😰 Stressed</button>
+            <button onclick="emotionReply('lonely')">🥺 Lonely</button>
+            <button onclick="emotionReply('motivation')">💪 Need Motivation</button>
+        </div>
+
+        <input type="text" id="userInput" placeholder="You can also type your feelings here...">
+    </div>
+</div>
+
+<script>
+function toggleChat() {
+    const chatbox = document.getElementById("chatbox");
+    chatbox.style.display = (chatbox.style.display === "block") ? "none" : "block";
+}
+
+function addMessage(text, type) {
+    const chatBody = document.getElementById("chatBody");
+    const div = document.createElement("div");
+    div.className = type;
+    div.innerText = text;
+    chatBody.appendChild(div);
+    chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+function emotionReply(emotion) {
+    let reply = "";
+
+    if (emotion === "happy")
+        reply = "I love seeing you happy 😊 Keep smiling, you truly deserve it!";
+
+    if (emotion === "sad")
+        reply = "I’m really glad you shared this 💙 It’s okay to feel sad sometimes. You’re not weak, you’re human.";
+
+    if (emotion === "stress")
+        reply = "Student life can be overwhelming 😔 Take a deep breath with me… you’re doing better than you think.";
+
+    if (emotion === "lonely")
+        reply = "I’m right here with you 🤍 You are not invisible and you matter deeply.";
+
+    if (emotion === "motivation")
+        reply = "You are stronger than your doubts 💪 Every small step you take today counts toward your future.";
+
+    addMessage(reply, "bot");
+}
+
+document.getElementById("userInput").addEventListener("keypress", function(e) {
+    if (e.key === "Enter") {
+        const msg = this.value.trim();
+        if (msg === "") return;
+
+        addMessage(msg, "user");
+        this.value = "";
+
+        setTimeout(() => {
+            addMessage("Thank you for trusting me with your feelings 🤍 I’m listening.", "bot");
+        }, 500);
+    }
+});
+</script>
+
+</body>
+</html>
